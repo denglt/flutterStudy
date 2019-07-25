@@ -30,12 +30,13 @@ Widget _titleSection = Container(
       ),
       /*3*/
       IconButton(
-        icon: Icon(Icons.star, color: Colors.black),
+        icon: Icon(Icons.star, color: Colors.red[500]),
         onPressed: () {
-          print('star start');
+          print('star star');
         },
       ),
       Text('41'),
+      FavoriteWidget(),
     ],
   ),
 );
@@ -74,6 +75,82 @@ Widget _textSection = Container(
   ),
 );
 
+Widget _stars = Row(
+  mainAxisSize: MainAxisSize.min,
+  mainAxisAlignment: MainAxisAlignment.center, // spaceEvenly
+  children: <Widget>[
+    Icon(Icons.star, color: Colors.green[500]),
+    Icon(Icons.star, color: Colors.green[500]),
+    Icon(Icons.star, color: Colors.green[500]),
+    Icon(Icons.star, color: Colors.black),
+    Icon(Icons.star, color: Colors.black),
+  ],
+);
+
+Widget _ratings = Container(
+  padding: EdgeInsets.all(20),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      _stars,
+      Text(
+        '170 Reviews',
+        style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.w800,
+          fontFamily: 'Roboto',
+          letterSpacing: 0.5,
+          fontSize: 20,
+        ),
+      ),
+    ],
+  ),
+);
+
+class FavoriteWidget extends StatefulWidget {
+  @override
+  _FavoriteWidgetState createState() => _FavoriteWidgetState();
+}
+
+class _FavoriteWidgetState extends State<FavoriteWidget> {
+  bool _isFavorited = true;
+  int _favoriteCount = 41;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          padding: EdgeInsets.all(0),
+          child: IconButton(
+            icon: (_isFavorited ? Icon(Icons.star) : Icon(Icons.star_border)),
+            color: Colors.red[500],
+            onPressed: _toggleFavorite,
+          ),
+        ),
+        SizedBox(
+          width: 18,
+          child: Container(
+            child: Text('$_favoriteCount'),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _toggleFavorite() {
+    setState(() {
+      if (_isFavorited) {
+        _favoriteCount -= 1;
+        _isFavorited = false;
+      } else {
+        _favoriteCount += 1;
+        _isFavorited = true;
+      }
+    });
+  }
+}
+
 class MyLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -84,7 +161,7 @@ class MyLayout extends StatelessWidget {
         children: [
           _buildButtonColumn(color, Icons.call, 'CALL'),
           _buildButtonColumn(color, Icons.near_me, 'ROUTE'),
-          _buildButtonColumn(color, Icons.share, 'SHARE'),
+          _buildButtonColumn(color, Icons.share, '分享'),
         ],
       ),
     );
@@ -92,7 +169,8 @@ class MyLayout extends StatelessWidget {
       appBar: AppBar(
         title: Text('Flutter layout demo'),
       ),
-      body: Column(
+      body: ListView(
+        // can touch
         children: [
           Image.asset(
             'images/lake.jpg',
@@ -103,7 +181,11 @@ class MyLayout extends StatelessWidget {
           _titleSection,
           buttonSection,
           _textSection,
+          _stars,
+          _ratings,
         ],
+        scrollDirection: Axis.vertical,
+        controller: null,
       ),
     );
   }
