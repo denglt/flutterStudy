@@ -27,7 +27,7 @@ class _TopCounterState extends State<TopCounter> {
           onPressed: () {
             Navigator.of(
               context,
-              rootNavigator: true,
+              rootNavigator: true, // 获取顶层的Navigator
             ).pop();
           },
         ),

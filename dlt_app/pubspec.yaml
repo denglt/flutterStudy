@@ -17,19 +17,35 @@ environment:
   sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
+  # 1) Path dependency
+  # 2) Git dependency or Git dependency on a package in a folder
   flutter:
     sdk: flutter
   english_words: ^3.1.0
-  video_player:
-  redux_logging:
-  redux:
-  flutter_redux:
-  # 
-  scoped_model:
+  video_player: ^0.10.1+6
+  redux_logging: ^0.3.0
+  redux: ^3.0.0
+  flutter_redux: ^0.5.3
+  scoped_model: ^1.0.1
+  #打开默认browser  
+  url_launcher: ^5.1.1
+  image_picker: ^0.6.1
+  image_picker_saver: ^0.3.0
+  camera: ^0.5.2+2
+  image_gallery_saver: ^1.1.0
+  #文件存储
+  path_provider: ^1.2.0
+  #存储key:value,像一个本地的Map
+  shared_preferences: ^0.5.3+4
+  path: ^1.6.2
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-
+  #国际
+  flutter_localizations:
+    sdk: flutter
+  flutter_cupertino_localizations: ^1.0.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

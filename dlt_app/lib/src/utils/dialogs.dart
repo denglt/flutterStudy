@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'dart:io' show Platform;
 
 Future<void> alertDialog(
     {@required BuildContext context, String title, @required String content}) {
@@ -41,7 +40,7 @@ Future<ConfirmAction> confirmDialog(
     context: context,
     barrierDismissible: false, // user must tap button for close dialog!
     builder: (BuildContext context) {
-      var alertDialog = AlertDialog(
+      return AlertDialog(
         title: title != null ? Text(title) : null,
         content: Text(content),
         actions: <Widget>[
@@ -59,7 +58,6 @@ Future<ConfirmAction> confirmDialog(
           )
         ],
       );
-      return alertDialog;
     },
   );
 }

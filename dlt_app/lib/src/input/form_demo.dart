@@ -265,6 +265,8 @@ class _FormDemoState extends State<FormDemo> {
       formState.save();
       //formState.reset(); // 有controll的无法reset
       print('$_name, $_password, $_phone,$_grade ,$_isMarry ,$_isWifi,$_blood');
+
+      // Scaffold.of(context)
       _scafflodKey.currentState.showBottomSheet((BuildContext context) {
         return Text(
             '$_name, $_password, $_phone,$_grade ,$_isMarry ,$_isWifi,$_blood');

@@ -1,10 +1,14 @@
-import 'package:dlt_app/src/state_manage/bloc/counter_main.dart';
+
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
+import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_cupertino_localizations/flutter_cupertino_localizations.dart';
+import 'package:camera/camera.dart';
 
 import 'src/colors_demo.dart';
 import 'src/my_layout.dart';
@@ -15,7 +19,7 @@ import 'src/counter.dart';
 import 'src/shop.dart';
 import 'src/card_and_stack.dart';
 import 'src/grid_and_list.dart';
-import 'src/utils/helper.dart';
+import 'src/utils/buttons.dart';
 import 'src/play_video.dart';
 import 'src/utils/dialogs.dart';
 import 'src/animate/animated_list.dart';
@@ -26,15 +30,22 @@ import 'src/animate/bar_loading_screen.dart';
 import 'src/animate/hero_animation.dart';
 import 'src/animate/stagger_animation.dart';
 import 'src/animate/logo_screen.dart';
-
 import 'src/scroll/sliver_demo.dart';
 import 'src/scroll/scroll_limit_reached.dart';
-
 import 'src/input/form_demo.dart';
 import 'src/state_manage/redux/counter_main.dart';
 import 'src/scroll/scroll_move.dart';
 import 'src/scroll/scroll_status.dart';
 import 'src/test_ui.dart';
+import 'src/state_manage/bloc/counter_main.dart';
+import 'src/platform_channel/battery_page.dart';
+
+import 'src/camera/take_picture.dart';
+import 'src/open_browser.dart';
+
+import 'src/camera/camera_example_home.dart';
+import 'src/image_picker/image_picker_demo.dart';
+import 'src/image_picker/image_picker_saver.dart';
 
 class RandoomWordsButton extends StatelessWidget {
   @override
@@ -596,6 +607,125 @@ class BlocCounterButton extends StatelessWidget {
   }
 }
 
+class BatteryPageButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Color color = Theme.of(context).primaryColor;
+    return buildLabelButton(
+      color: color,
+      icon: Icons.battery_unknown,
+      label: 'Battery',
+      onPressed: () => _onPressed(context),
+    );
+  }
+
+  void _onPressed(BuildContext context) async {
+    await Navigator.of(context).pushNamed('/batteryPage');
+    timeDilation = 1.0;
+  }
+}
+
+class OpenBrowserPageButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Color color = Theme.of(context).primaryColor;
+    return buildLabelButton(
+      color: color,
+      icon: Icons.open_in_browser,
+      label: 'Browser',
+      onPressed: () => _onPressed(context),
+    );
+  }
+
+  void _onPressed(BuildContext context) async {
+    await Navigator.of(context).pushNamed('/openBrowserPage');
+    timeDilation = 1.0;
+  }
+}
+
+class CameraTakePictureButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Color color = Theme.of(context).primaryColor;
+    return buildLabelButton(
+      color: color,
+      icon: Icons.camera_alt,
+      label: 'Camera',
+      onPressed: () => _onPressed(context),
+    );
+  }
+
+  void _onPressed(BuildContext context) async {
+    await Navigator.of(context).pushNamed('/cameraTakePicture');
+    timeDilation = 1.0;
+  }
+}
+
+class CameraExampleHomeButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Color color = Theme.of(context).primaryColor;
+    return buildLabelButton(
+      color: color,
+      icon: Icons.camera_alt,
+      label: 'Camera2',
+      onPressed: () => _onPressed(context),
+    );
+  }
+
+  void _onPressed(BuildContext context) async {
+    List<CameraDescription> cameras;
+    try {
+      cameras = await availableCameras();
+    } on CameraException catch (e) {
+      logError(e.code, e.description);
+    }
+    if (cameras != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(
+          builder: (BuildContext context) {
+            return CameraExampleHome(cameras: cameras);
+          },
+        ),
+      );
+    }
+  }
+}
+
+class ImagePickerPageButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Color color = Theme.of(context).primaryColor;
+    return buildLabelButton(
+      color: color,
+      icon: Icons.camera_alt,
+      label: 'Camera3',
+      onPressed: () => _onPressed(context),
+    );
+  }
+
+  void _onPressed(BuildContext context) async {
+    Navigator.pushNamed(context, '/imagePickerPage');
+  }
+}
+
+class ImagePickerSaverPageButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Color color = Theme.of(context).primaryColor;
+    return buildLabelButton(
+      color: color,
+      icon: Icons.camera_alt,
+      label: 'Camera4',
+      onPressed: () => _onPressed(context),
+    );
+  }
+
+  void _onPressed(BuildContext context) async {
+    Navigator.pushNamed(context, '/imagePickerSaverPage');
+  }
+}
 class TutorialHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -703,6 +833,17 @@ class TutorialHome extends StatelessWidget {
                 BlocCounterButton(),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                BatteryPageButton(),
+                OpenBrowserPageButton(),
+                CameraTakePictureButton(),
+                CameraExampleHomeButton(),
+                ImagePickerPageButton(),
+                ImagePickerSaverPageButton(),
+              ],
+            ),
           ],
           textDirection: TextDirection.rtl,
         ),
@@ -725,6 +866,12 @@ main(List<String> args) {
     home: TutorialHome(),
   ));
   */
+
+  /// 强制竖屏
+  ///
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
   runApp(MaterialApp(
     title: 'My app',
     // home: MainScreen(), //MyScaffold(),
@@ -751,6 +898,25 @@ main(List<String> args) {
       '/testUI': (BuildContext context) => TestUI(),
       '/reduxCounter': (BuildContext context) => MainCounter(),
       '/blocCounter': (BuildContext context) => MainBlocCounter(),
+      '/batteryPage': (BuildContext context) => BatteryPage(),
+      '/openBrowserPage': (BuildContext context) => OpenBrowserPage(),
+      '/cameraTakePicture': (BuildContext context) => TakePictureScreen(),
+      '/imagePickerPage':(BuildContext context) => ImagePickerPage(),
+      '/imagePickerSaverPage' :(BuildContext context) => ImagePickerSaverPage(),
     },
+    localizationsDelegates: [
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+    ],
+    supportedLocales: [
+      const Locale('en'),
+      const Locale('he'),
+      const Locale.fromSubtags(languageCode: 'zh'),
+    ],
   ));
 }
+
+void logError(String code, String message) =>
+    print('Error: $code\nError Message: $message');
+
