@@ -1,4 +1,4 @@
-
+import 'package:dlt_app/src/location/location_page.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
@@ -726,6 +726,24 @@ class ImagePickerSaverPageButton extends StatelessWidget {
     Navigator.pushNamed(context, '/imagePickerSaverPage');
   }
 }
+
+class LocationPageButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Color color = Theme.of(context).primaryColor;
+    return buildLabelButton(
+      color: color,
+      icon: Icons.location_on,
+      label: 'GPS',
+      onPressed: () => _onPressed(context),
+    );
+  }
+
+  _onPressed(BuildContext context) {
+    Navigator.pushNamed(context, '/locationPageButton');
+  }
+}
+
 class TutorialHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -752,7 +770,7 @@ class TutorialHome extends StatelessWidget {
       ),
       // body is the majority of the screen.
       body: Center(
-        child: Column(
+        child: ListView(
           children: <Widget>[
             RandoomWordsButton(),
             Counter(),
@@ -844,8 +862,13 @@ class TutorialHome extends StatelessWidget {
                 ImagePickerSaverPageButton(),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                LocationPageButton(),
+              ],
+            )
           ],
-          textDirection: TextDirection.rtl,
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -901,8 +924,9 @@ main(List<String> args) {
       '/batteryPage': (BuildContext context) => BatteryPage(),
       '/openBrowserPage': (BuildContext context) => OpenBrowserPage(),
       '/cameraTakePicture': (BuildContext context) => TakePictureScreen(),
-      '/imagePickerPage':(BuildContext context) => ImagePickerPage(),
-      '/imagePickerSaverPage' :(BuildContext context) => ImagePickerSaverPage(),
+      '/imagePickerPage': (BuildContext context) => ImagePickerPage(),
+      '/imagePickerSaverPage': (BuildContext context) => ImagePickerSaverPage(),
+      '/locationPageButton': (BuildContext context) => LocationPage(),
     },
     localizationsDelegates: [
       GlobalMaterialLocalizations.delegate,
@@ -919,4 +943,3 @@ main(List<String> args) {
 
 void logError(String code, String message) =>
     print('Error: $code\nError Message: $message');
-

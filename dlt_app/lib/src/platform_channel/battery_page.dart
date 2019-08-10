@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -58,7 +60,9 @@ class _BatteryPageState extends State<BatteryPage> {
   Future<void> _getBatteryLevel() async {
     String batteryLevel;
     try {
+     // PluginUtilities.getCallbackHandle(callback)
       final int result = await platform.invokeMethod('getBatteryLevel');
+     // platform.setMethodCallHandler(handler)
       batteryLevel = 'Battery level at $result % .';
     } on PlatformException catch (e) {
       batteryLevel = "Failed to get battery level: '${e.message}'.";
