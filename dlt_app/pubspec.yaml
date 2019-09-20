@@ -33,6 +33,7 @@ dependencies:
   image_picker_saver: ^0.3.0
   camera: ^0.5.2+2
   image_gallery_saver: ^1.1.0
+  flutter_image_compress: ^0.6.3
   #文件存储
   path_provider: ^1.2.0
   #存储key:value,像一个本地的Map
@@ -51,8 +52,9 @@ dependencies:
   #国际
   flutter_localizations:
     sdk: flutter
-  flutter_cupertino_localizations: ^1.0.1
-  
+  # flutter_cupertino_localizations: ^1.0.1 不兼容 flutter 1.7
+  logs:
+    git: https://github.com/pq/logs
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -76,7 +78,7 @@ flutter:
   #assets:
     #- images/lake.jpg
     #- images/pavlova.jpg
-  assets: [images/]
+  assets: [images/,images/common/]
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

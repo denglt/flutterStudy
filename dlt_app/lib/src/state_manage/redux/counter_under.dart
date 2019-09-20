@@ -38,7 +38,7 @@ class _UnderCounterState extends State<UnderCounter> {
       ),
       floatingActionButton: StoreConnector<CountState, VoidCallback>(//转换state为一个VoidCallback
         converter: (store) {
-          return () => store.dispatch(Action.increment);// 发出了一个动作，所以是VoidCallback。
+          return () => store.dispatch(CountAction.increment);// 发出了一个动作，所以是VoidCallback。
         },
         builder: (context, callback) { //这个callback为上面的VoidCallback
           return FloatingActionButton(

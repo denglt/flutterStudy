@@ -16,14 +16,14 @@ class CountState {
   CountState.initState() : _count = 0;
 }
 
-enum Action { increment }
+enum CountAction { increment }
 
 /*
  * reducer会根据传进来的action生成新的CountState
  */
 CountState reducer(CountState state, action) {
   //匹配Action
-  if (action == Action.increment) {
+  if (action == CountAction.increment) {
     return CountState(state.count + 1);
   }
   return state;

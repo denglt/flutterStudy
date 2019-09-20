@@ -17,7 +17,7 @@ class _LogoScreenState extends State<LogoScreen>
       vsync: this,
     );
     animation = new CurvedAnimation(parent: controller, curve: Curves.easeIn);
-
+    //animation.addStatusListener(listener)
     controller.addStatusListener((state) {
       if (state == AnimationStatus.completed) {
         controller.reverse();

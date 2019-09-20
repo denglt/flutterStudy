@@ -82,7 +82,23 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
                 ),
               );
             },
-          )
+          ),
+          IconButton(
+            icon: Icon(Icons.open_in_browser),
+            onPressed: () async {
+              String _path = (await getTemporaryDirectory()).path;
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) {
+                    return BrowserPicture(
+                      path: _path,
+                      showImage: false,
+                    );
+                  },
+                ),
+              );
+            },
+          ),
         ],
       ),
       body: Column(
@@ -211,7 +227,7 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
   void _onTakePictureButtonPressed() async {
     final filePath = join(
       (await getTemporaryDirectory()).path,
-      '${DateTime.now()}.png',
+      '${DateTime.now()}.jpg',
     );
     try {
       await _controller.takePicture(filePath);

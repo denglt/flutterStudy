@@ -1,13 +1,12 @@
 import 'package:dlt_app/src/location/location_page.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_cupertino_localizations/flutter_cupertino_localizations.dart';
 import 'package:camera/camera.dart';
 
 import 'src/colors_demo.dart';
@@ -758,14 +757,41 @@ class TutorialHome extends StatelessWidget {
             tooltip: 'Search',
             onPressed: null,
           ),
-          IconButton(
-            icon: Icon(Icons.search),
-            tooltip: 'Search',
-            onPressed: null,
-          ),
           RandoomWordsButton(),
           MyLayoutButton(),
           PavlovaButton(),
+          PopupMenuButton(
+            elevation: 4,
+            // padding: EdgeInsets.symmetric(horizontal: 50),
+            offset: Offset(0, 100), //(-400,100)
+            icon: Icon(Icons.add_to_photos),
+            child: null, // 菜单显示
+            onSelected: (t) => print(t),
+            itemBuilder: (BuildContext context) {
+              var list = List<PopupMenuEntry<int>>();
+              list.add(PopupMenuDivider(
+                height: 10,
+              ));
+              return <PopupMenuItem<int>>[
+                PopupMenuItem(
+                  value: 1,
+                  child: Text('item 1'),
+                ),
+                PopupMenuItem(
+                  value: 2,
+                  child: Text('item 2'),
+                ),
+                CheckedPopupMenuItem(
+                  child: Text(
+                    "English",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  value: 3,
+                  checked: true,
+                ),
+              ];
+            },
+          ),
         ],
       ),
       // body is the majority of the screen.
@@ -872,10 +898,15 @@ class TutorialHome extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: 'Add', // used by assistive technologies
+        tooltip: 'Debug', // used by assistive technologies
         child: Icon(Icons.add),
-        onPressed: null,
+        onPressed: () {
+          // debugDumpApp(); // Widget tree
+          //debugDumpRenderTree(); // Render tree
+          debugDumpLayerTree(); // Layer tree
+        },
       ),
+      bottomNavigationBar: Text('datadfsdfsdfdfsdfsdfdsfsf'),
     );
   }
 }
@@ -883,6 +914,9 @@ class TutorialHome extends StatelessWidget {
 main(List<String> args) {
   //_titleSection
   debugPaintSizeEnabled = false; // Set to true for visual layout
+  debugPrintBeginFrameBanner = false;
+  debugPrintEndFrameBanner = false;
+  timeDilation = 1.0; // 控制动画的快慢
 /*
   runApp(CupertinoApp(
     title: 'My App',
@@ -894,9 +928,9 @@ main(List<String> args) {
   ///
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-
   runApp(MaterialApp(
     title: 'My app',
+    showPerformanceOverlay: true,
     // home: MainScreen(), //MyScaffold(),
     //initialRoute: '/testUI',
     routes: <String, WidgetBuilder>{

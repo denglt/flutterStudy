@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
-import 'bloc_provider.dart';
 import 'counter_bloc.dart';
 
 class UnderCounter extends StatefulWidget {

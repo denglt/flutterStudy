@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class _BatteryPageState extends State<BatteryPage> {
   void initState() {
     super.initState();
     eventChannel.receiveBroadcastStream().listen(_onEvent, onError: _onError);
+   // eventChannel.receiveBroadcastStream().map(convert)
   }
 
   void _onEvent(Object event) {
@@ -72,5 +74,10 @@ class _BatteryPageState extends State<BatteryPage> {
     setState(() {
       _batteryLevel = batteryLevel;
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

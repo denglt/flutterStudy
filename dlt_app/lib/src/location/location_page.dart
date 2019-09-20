@@ -20,9 +20,7 @@ class _LocationPageState extends State<LocationPage> {
   void initState() {
     super.initState();
     _location = Location();
-    _location.changeSettings(
-      interval: 1000
-    );
+    _location.changeSettings(interval: 1000);
     _location.getLocation().then((LocationData locationData) async {
       await _getAddress(locationData);
       setState(() {
@@ -94,19 +92,12 @@ class _LocationPageState extends State<LocationPage> {
     if (_addressInfo == null) {
       return Text('没有地址信息');
     } else {
-      return FutureBuilder(
-        future: Stream.fromIterable(_addressInfo.entries)
-            .map((t) => Text('${t.key} : ${t.value}'))
-            .toList(),
-        builder: (BuildContext context, AsyncSnapshot snapshot){
-          if (snapshot.connectionState == ConnectionState.done){
-            (snapshot.data as List).insert(0, Text('地址信息如下:                                          '));
-            return Column(
-              children: snapshot.data,
-            );
-          }
-          return Text('');
-        },
+      var list = _addressInfo.entries
+          .map((t) => Text('${t.key} : ${t.value}'))
+          .toList();
+      list.insert(0, Text('地址信息如下:                                          '));
+      return Column(
+        children: list,
       );
     }
   }

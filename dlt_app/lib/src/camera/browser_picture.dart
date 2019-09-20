@@ -1,10 +1,12 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class BrowserPicture extends StatefulWidget {
   final String path;
-
-  BrowserPicture({this.path});
+  final bool showImage;
+  BrowserPicture({this.path, this.showImage = true});
 
   @override
   _BrowserPictureState createState() => _BrowserPictureState();
@@ -18,7 +20,7 @@ class _BrowserPictureState extends State<BrowserPicture> {
         title: Text('pictures'),
       ),
       body: FutureBuilder(
-        future: _buildGridTileList(),
+        future: _buildGridViewImage(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.data != null) {
@@ -39,18 +41,30 @@ class _BrowserPictureState extends State<BrowserPicture> {
     );
   }
 
-  Future<List<Widget>> _buildGridTileList() async {
+  Future<List<Widget>> _buildGridViewImage() async {
     List<Widget> widgets = [];
     if (await FileSystemEntity.isDirectory(widget.path)) {
       final startingDir = Directory(widget.path);
       await for (var entity
           in startingDir.list(recursive: false, followLinks: false)) {
-        print('find -> $entity');
-        if (entity is File && entity.path.endsWith(".png")) {
-          print('find png -> $entity');
+        if (entity is File &&
+            (entity.path.endsWith(".jpg") || entity.path.endsWith(".png"))) {
+          List<int> compressImage = await FlutterImageCompress.compressWithFile(
+            entity.absolute.path,
+            quality: 50,
+            rotate: 0,
+          );
+          print(
+              'file:$entity size: ${entity.lengthSync()}, ${compressImage.length}');
           widgets.add(
             Container(
-              child: Image.file(entity),
+              child: widget.showImage
+                  ? /* FadeInImage(
+                      image: FileImage(entity),
+                      placeholder: MemoryImage(compressImage),
+                    ) */
+                  MemoryImage(Uint8List.fromList(compressImage))
+                  : Text('file:$entity size: ${entity.lengthSync()}'),
             ),
           );
         }
@@ -62,7 +76,7 @@ class _BrowserPictureState extends State<BrowserPicture> {
     if (widgets.length == 0) {
       widgets.add(
         Center(
-          child: Text('not find png.'),
+          child: Text('not find images.'),
         ),
       );
     }

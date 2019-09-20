@@ -2,7 +2,7 @@ import 'package:dlt_app/src/state_manage/bloc/bloc_provider.dart';
 import 'package:dlt_app/src/state_manage/bloc/counter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+
 
 import 'counter_under.dart';
 
@@ -15,9 +15,9 @@ class _TopCounterState extends State<TopCounter> {
   @override
   Widget build(BuildContext context) {
     print('_TopCounterState -> $context');
-    AppBloc appBloc = BlocProvider.of(context);
+    AppBloc appBloc = BlocProvider.of(context); 
     print('find => $appBloc ');
-    CounterBLoc counterBLoc = BlocProvider.of(context);
+    CounterBLoc counterBLoc = BlocProvider.of(context); // 获取状态
     print('find => $counterBLoc');
     return Scaffold(
       appBar: AppBar(
