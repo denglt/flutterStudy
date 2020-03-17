@@ -43,11 +43,15 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   # location
-  # flutter_geofencing: ^0.0.1
+  #flutter_geofencing: ^0.0.1
   location: ^2.3.5
   haversine: ^1.0.2
 
   http: ^0.12.0+2
+  collection: ^1.14.11
+  
+  #chart
+  fl_chart: ^0.7.0 
 
   #国际
   flutter_localizations:

@@ -29,7 +29,6 @@ class ScaffoldStatefulState extends State<ScaffoldStateful> {
         bottom: null,
       ),
       body: null,
-      
     );
   }
 }

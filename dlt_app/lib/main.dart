@@ -1,4 +1,3 @@
-import 'package:dlt_app/src/location/location_page.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -45,6 +44,8 @@ import 'src/open_browser.dart';
 import 'src/camera/camera_example_home.dart';
 import 'src/image_picker/image_picker_demo.dart';
 import 'src/image_picker/image_picker_saver.dart';
+import 'src/location/location_page.dart';
+import 'src/chart/line_chart_sample1.dart';
 
 class RandoomWordsButton extends StatelessWidget {
   @override
@@ -71,10 +72,11 @@ class RandoomWordsButton extends StatelessWidget {
   }
 
   void _pushRandomWords(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute<void>(builder: (BuildContext context) {
-      return RandomWords();
-    }));
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (BuildContext context) {
+        return RandomWords();
+      }),
+    );
   }
 }
 
@@ -89,16 +91,17 @@ class ShippingButton extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute<void>(builder: (BuildContext context) {
-      return ShoppingList(
-        products: <Product>[
-          Product(name: 'Eggs'),
-          Product(name: 'Flour'),
-          Product(name: 'Chocolate chips'),
-        ],
-      );
-    }));
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (BuildContext context) {
+        return ShoppingList(
+          products: <Product>[
+            Product(name: 'Eggs'),
+            Product(name: 'Flour'),
+            Product(name: 'Chocolate chips'),
+          ],
+        );
+      }),
+    );
   }
 }
 
@@ -114,10 +117,11 @@ class MyLayoutButton extends StatelessWidget {
 
   void _onPressed(BuildContext context) {
     /*
-    Navigator.of(context)
-        .push(MaterialPageRoute<void>(builder: (BuildContext context) {
-      return MyLayout();
-    }));
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (BuildContext context) {
+        return MyLayout();
+      }),
+    );
     */
     Navigator.pushNamed(context, '/mylayout');
     //Navigator.pushReplacement(context, newRoute)
@@ -135,10 +139,11 @@ class PavlovaButton extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute<void>(builder: (BuildContext context) {
-      return Pvalova();
-    }));
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (BuildContext context) {
+        return Pvalova();
+      }),
+    );
   }
 }
 
@@ -153,10 +158,11 @@ class MyScaffoldIconButton extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute<void>(builder: (BuildContext context) {
-      return MyScaffold();
-    }));
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (BuildContext context) {
+        return MyScaffold();
+      }),
+    );
   }
 }
 
@@ -176,12 +182,13 @@ class GridAndListButton extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute<void>(builder: (BuildContext context) {
-      return GridAndList(
-        showGrid: showGrid,
-      );
-    }));
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (BuildContext context) {
+        return GridAndList(
+          showGrid: showGrid,
+        );
+      }),
+    );
   }
 }
 
@@ -198,10 +205,11 @@ class ColorButton extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute<void>(builder: (BuildContext context) {
-      return ColorsDemo();
-    }));
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (BuildContext context) {
+        return ColorsDemo();
+      }),
+    );
   }
 }
 
@@ -222,12 +230,13 @@ class CardAndStackButton extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute<void>(builder: (BuildContext context) {
-      return CardAndStack(
-        showCard: showCard,
-      );
-    }));
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (BuildContext context) {
+        return CardAndStack(
+          showCard: showCard,
+        );
+      }),
+    );
   }
 }
 
@@ -248,10 +257,11 @@ class PlayVideoButton extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute<void>(builder: (BuildContext context) {
-      return PlayVideo(url: url);
-    }));
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (BuildContext context) {
+        return PlayVideo(url: url);
+      }),
+    );
   }
 }
 
@@ -743,6 +753,23 @@ class LocationPageButton extends StatelessWidget {
   }
 }
 
+class LineChartSample1PageButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Color color = Theme.of(context).primaryColor;
+    return buildLabelButton(
+      color: color,
+      icon: Icons.insert_chart,
+      label: 'Chart1',
+      onPressed: () => _onPressed(context),
+    );
+  }
+
+  _onPressed(BuildContext context) {
+    Navigator.pushNamed(context, '/lineChartSample1');
+  }
+}
+
 class TutorialHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -853,7 +880,7 @@ class TutorialHome extends StatelessWidget {
                 StaggerButton(),
               ],
             ),
-            // scroll
+            // scrolπ
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -889,11 +916,18 @@ class TutorialHome extends StatelessWidget {
               ],
             ),
             Row(
+              // GPS
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 LocationPageButton(),
               ],
-            )
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                LineChartSample1PageButton(),
+              ],
+            ),
           ],
         ),
       ),
@@ -930,7 +964,8 @@ main(List<String> args) {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(MaterialApp(
     title: 'My app',
-    showPerformanceOverlay: true,
+    debugShowCheckedModeBanner: false,
+    showPerformanceOverlay: false,
     // home: MainScreen(), //MyScaffold(),
     //initialRoute: '/testUI',
     routes: <String, WidgetBuilder>{
@@ -961,6 +996,7 @@ main(List<String> args) {
       '/imagePickerPage': (BuildContext context) => ImagePickerPage(),
       '/imagePickerSaverPage': (BuildContext context) => ImagePickerSaverPage(),
       '/locationPageButton': (BuildContext context) => LocationPage(),
+      '/lineChartSample1': (BuildContext context) => LineChartSample1(),
     },
     localizationsDelegates: [
       GlobalMaterialLocalizations.delegate,

@@ -39,7 +39,7 @@ DEPENDENCIES:
   - video_player (from `.symlinks/plugins/video_player/ios`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Mantle
 
 EXTERNAL SOURCES:
@@ -68,7 +68,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   camera: d56ad165545ae5a0ffb892376033760a969c68c8
-  Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_image_compress: f69d0e0e078ce52b4810695593bc861ee319ae7d
   image_gallery_saver: 1798f45aab0db52c4a2a161409c361340a19908e
   image_picker: 16e5fec1fbc87fd3b297c53e4048521eaf17cd06
@@ -82,4 +82,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: b6f155507492e42c4dbc2abea3e3c02cbba6e476
 
-COCOAPODS: 1.7.2
+COCOAPODS: 1.8.4
